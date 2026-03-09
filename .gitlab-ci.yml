@@ -1,0 +1,25 @@
+stages:
+  - test
+  - deploy
+
+# This job checks if the runner can execute basic shell commands
+verify-runner:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "Runner is active and executing tasks!"
+    - echo "Hostname is $(hostname)"
+    - echo "Current directory is $(pwd)"
+    - date > timestamp.txt
+  artifacts:
+    paths:
+      - timestamp.txt
+
+# This job ensures the runner can pass files between stages
+verify-artifacts:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Checking if artifact from previous stage exists..."
+    - cat timestamp.txt
+    - echo "Pipeline successful!"
