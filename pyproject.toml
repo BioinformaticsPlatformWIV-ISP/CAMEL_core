@@ -1,0 +1,86 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "camel_core"
+dynamic = ["version"]
+description = "CAMEL core is a set of utilities used by Bioinformatics Platform at the Belgian Public Health institute (Sciensano)."
+readme = "README.md"
+requires-python = "==3.12.*"
+license = "GPL-3.0-or-later"
+
+authors = [
+  {name = "Sciensano BIOIT team", email = "bioit@sciensano.be"}
+]
+
+keywords = ["research", "microbial", "genomics"]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Programming Language :: Python :: 3",
+]
+
+dependencies = [
+  "biopython",
+  "bs4",
+  "click",
+  "cyvcf2",
+  "furl",
+  "humanize",
+  "pandas",
+  "pysam",
+  "rauth",
+  "requests",
+  "scipy",
+  "snakemake",
+  "yattag"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-xdist",
+]
+
+[project.urls]
+Homepage = "https://github.com/BioinformaticsPlatformWIV-ISP/MiST"
+Issues = "https://github.com/BioinformaticsPlatformWIV-ISP/MiST/issues"
+
+[tool.hatch.version]
+path = "camelcore/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["camelcore"]
+
+[tool.ruff.lint]
+select = [
+    "D",
+    "I",
+    "F",
+    "PL",
+    "UP",
+    "W"
+]
+ignore = [
+    "I001",
+    "D100",
+    "D104",
+    "D200",
+    "D204",
+    "D205",
+    "D400",
+    "D401",
+    "PLW1510",
+    "PLR2004",
+    "PLR0913",
+    "PLR0911"
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.format]
+quote-style = "preserve"
