@@ -1,23 +1,18 @@
 stages:
-  - info
-  - write_test
+  - lint
 
-show_system_info:
-  stage: info
-  script:
-    - echo "Checking the user running this job:"
-    - whoami
-    - echo "Checking the Shell version:"
-    - $SHELL --version || echo "Using default shell"
-    - echo "Current directory path:"
-    - pwd
+# Ensure the runner doesn't keep a massive cache of environments in the project folder
+variables:
+  UV_PROJECT_ENVIRONMENT: ".uv_cache"
 
-test_file_permissions:
-  stage: write_test
+ruff-lint:
+  stage: lint
   script:
-    - echo "Testing if I can write a file to the build directory..."
-    - echo "Success" > shell_test.log
-    - cat shell_test.log
-  artifacts:
-    paths:
-      - shell_test.log
+    - echo "Running Ruff check via uv..."
+    - uv run --with ruff ruff check . --config pyproject.toml
+    
+    - echo "Running Ruff format check via uv..."
+    - uv run --with ruff ruff format . --check --config pyproject.toml
+  after_script:
+    # Optional: Clean up the local environment to keep the Shell Runner host tidy
+    - rm -rf .uv_cache
