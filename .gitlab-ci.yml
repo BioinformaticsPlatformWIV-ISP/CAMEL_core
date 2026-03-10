@@ -1,25 +1,23 @@
 stages:
-  - test
-  - deploy
+  - info
+  - write_test
 
-# This job checks if the runner can execute basic shell commands
-verify-runner:
-  stage: test
-  image: alpine:latest
+show_system_info:
+  stage: info
   script:
-    - echo "Runner is active and executing tasks!"
-    - echo "Hostname is $(hostname)"
-    - echo "Current directory is $(pwd)"
-    - date > timestamp.txt
+    - echo "Checking the user running this job:"
+    - whoami
+    - echo "Checking the Shell version:"
+    - $SHELL --version || echo "Using default shell"
+    - echo "Current directory path:"
+    - pwd
+
+test_file_permissions:
+  stage: write_test
+  script:
+    - echo "Testing if I can write a file to the build directory..."
+    - echo "Success" > shell_test.log
+    - cat shell_test.log
   artifacts:
     paths:
-      - timestamp.txt
-
-# This job ensures the runner can pass files between stages
-verify-artifacts:
-  stage: deploy
-  image: alpine:latest
-  script:
-    - echo "Checking if artifact from previous stage exists..."
-    - cat timestamp.txt
-    - echo "Pipeline successful!"
+      - shell_test.log
