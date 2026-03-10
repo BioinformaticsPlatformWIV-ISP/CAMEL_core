@@ -20,9 +20,6 @@ def make_valid(value: str) -> str:
     :param value: Input string
     :return: URL- and filename friendly value
     """
-
-
-
     value = value.replace(' ', '_')
     return ''.join([c for c in value if re.match(r'[\w\-_\\.]', c)])
 
