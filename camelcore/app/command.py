@@ -66,8 +66,14 @@ class Command:
         """
         self._command = cmd
 
-    def run(self, folder: Path, stderr_handle=subprocess.PIPE, disable_logging: bool = False, prefix: str | None = None,
-            env: dict[str, Any] | None = None) -> None:
+    def run(
+        self,
+        folder: Path,
+        stderr_handle=subprocess.PIPE,
+        disable_logging: bool = False,
+        prefix: str | None = None,
+        env: dict[str, Any] | None = None,
+    ) -> None:
         """
         Runs the command given at command initialization
         :param folder: Folder where the command is executed
@@ -96,7 +102,7 @@ class Command:
             )
 
         # Output file
-        stdout_handle = (self._stdout_path.open('w', encoding='utf-8') if self._stdout_path else subprocess.PIPE)
+        stdout_handle = self._stdout_path.open('w', encoding='utf-8') if self._stdout_path else subprocess.PIPE
 
         try:
             self._procedure = subprocess.run(
@@ -129,6 +135,5 @@ class Command:
         :param stderr_handle: Handle for the standard error (e.g. PIPE or STDOUT)
         :return: None
         """
-        warnings.warn(
-            'The run_command method is deprecated, please use the run() method instead.', DeprecationWarning)
+        warnings.warn('The run_command method is deprecated, please use the run() method instead.', DeprecationWarning)
         self.run(folder, stderr_handle)

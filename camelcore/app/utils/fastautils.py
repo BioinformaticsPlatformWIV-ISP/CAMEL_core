@@ -18,6 +18,7 @@ def read_as_dict(fasta: Path) -> dict:
     with fasta.open() as handle:
         return SeqIO.to_dict(SeqIO.parse(handle, "fasta"))
 
+
 def write(sequences: list[SeqIO.SeqRecord | str], fasta: Path) -> None:
     """
     Write a list of sequence records into fasta file
@@ -27,6 +28,7 @@ def write(sequences: list[SeqIO.SeqRecord | str], fasta: Path) -> None:
     """
     with open(fasta, 'w') as output_handle:
         SeqIO.write(sequences, output_handle, "fasta")
+
 
 def count_reads(infile: Path) -> int:
     """
@@ -42,6 +44,7 @@ def count_reads(infile: Path) -> int:
         raise RuntimeError(command.stderr, cmd)
     return int(command.stdout.rstrip())
 
+
 def count_bases(infile: Path) -> int:
     """
     Counts the number of bases in a FASTA file.
@@ -52,6 +55,7 @@ def count_bases(infile: Path) -> int:
     for seq in SeqIO.parse(infile, 'fasta'):
         total_size += len(seq)
     return total_size
+
 
 def gc(infile: Path) -> float:
     """
@@ -67,6 +71,7 @@ def gc(infile: Path) -> float:
         gcs.append(100 * gc_fraction(seq.seq))
     return float(np.average(gcs, weights=weights))
 
+
 def is_indexed(fasta: Path) -> bool:
     """
     Checks if the input fasta file is indexed with the FAI index.
@@ -79,9 +84,16 @@ def is_indexed(fasta: Path) -> bool:
         return False
     return True
 
+
 def rename_sequences_regex(
-        fasta_in: Path, fasta_out: Path, regex: str, repl: str, search_in_description: bool = False,
-        sort_output: bool = True, description: str | None = None) -> None:
+    fasta_in: Path,
+    fasta_out: Path,
+    regex: str,
+    repl: str,
+    search_in_description: bool = False,
+    sort_output: bool = True,
+    description: str | None = None,
+) -> None:
     """
     Renames the sequences in the input FASTA file using a regex.
     :param fasta_in: Input FASTA file
@@ -104,6 +116,7 @@ def rename_sequences_regex(
     with fasta_out.open('w') as handle:
         SeqIO.write(seqs, handle, 'fasta')
 
+
 def rename_sequences_with_fasta_file(fasta_in: Path, fasta_ref: Path, fasta_out: Path) -> None:
     """
     Changes the names of the sequences in the input FASTA file to the sequences in the reference FASTA file (in the
@@ -124,13 +137,15 @@ def rename_sequences_with_fasta_file(fasta_in: Path, fasta_ref: Path, fasta_out:
     # Update seq ids
     if len(seqs_in) != len(seq_ids_ref):
         raise ValueError(
-            f'Nb. of seqs in input file ({len(seqs_in)}) does not match reference file ({len(seq_ids_ref)}')
+            f'Nb. of seqs in input file ({len(seqs_in)}) does not match reference file ({len(seq_ids_ref)}'
+        )
     for seq_in, ref_id in zip(seqs_in, seq_ids_ref):
         seq_in.id = ref_id
 
     # Create the output file
     with fasta_out.open('w') as handle:
         SeqIO.write(seqs_in, handle, 'fasta')
+
 
 def convert_fasta_to_fastq(fasta_input_file: Path, fastq_output_file: Path) -> None:
     """
@@ -143,10 +158,15 @@ def convert_fasta_to_fastq(fasta_input_file: Path, fastq_output_file: Path) -> N
             fake_quality = [40] * len(record.seq)
 
             # Create a SeqRecord with the same sequence and a fake quality string
-            fake_record = SeqRecord(record.seq, id=record.id, description=record.description, letter_annotations={
-                "phred_quality": fake_quality})
+            fake_record = SeqRecord(
+                record.seq,
+                id=record.id,
+                description=record.description,
+                letter_annotations={"phred_quality": fake_quality},
+            )
             # Write the SeqRecord in FASTQ format
             SeqIO.write(fake_record, fastq_file, 'fastq')
+
 
 def has_duplicates(fasta: Path) -> bool:
     """

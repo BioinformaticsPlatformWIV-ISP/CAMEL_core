@@ -55,6 +55,9 @@ path = "camelcore/version.py"
 [tool.hatch.build.targets.wheel]
 packages = ["camelcore"]
 
+[tool.ruff]
+line-length = 120
+
 [tool.ruff.lint]
 select = [
     "D",

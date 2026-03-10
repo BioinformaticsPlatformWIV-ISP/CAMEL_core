@@ -57,15 +57,28 @@ class TestFastqUtils(TestSuite):
         Tests the get sample name function for the bacdis ONT format.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/S22BD04543_SQK-RBK114-96_SUPv5-0-0_2025_run0113_B25.fastq.gz'), fastqutils.PATTERN_FQ_ONT), 'S22BD04543')
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/S22BD04543_SQK-RPB114-24_HACv5-0-0_2025_run0113_B25.fastq'), fastqutils.PATTERN_FQ_ONT), 'S22BD04543')
+        self.assertEqual(
+            fastqutils.get_sample_name(
+                Path('/data/temp/S22BD04543_SQK-RBK114-96_SUPv5-0-0_2025_run0113_B25.fastq.gz'),
+                fastqutils.PATTERN_FQ_ONT,
+            ),
+            'S22BD04543',
+        )
+        self.assertEqual(
+            fastqutils.get_sample_name(
+                Path('/data/temp/S22BD04543_SQK-RPB114-24_HACv5-0-0_2025_run0113_B25.fastq'), fastqutils.PATTERN_FQ_ONT
+            ),
+            'S22BD04543',
+        )
         # Regular filename (not matching the format)
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/S22BD04543_ont.fastq'), fastqutils.PATTERN_FQ_ONT),'S22BD04543_ont')
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/Myco-SRR8948399_ont-ds.fastq.gz'), fastqutils.PATTERN_FQ_ONT),'Myco-SRR8948399_ont-ds')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/S22BD04543_ont.fastq'), fastqutils.PATTERN_FQ_ONT),
+            'S22BD04543_ont',
+        )
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/Myco-SRR8948399_ont-ds.fastq.gz'), fastqutils.PATTERN_FQ_ONT),
+            'Myco-SRR8948399_ont-ds',
+        )
 
     def test_get_sample_name_invalid_fmt(self) -> None:
         """
@@ -115,39 +128,46 @@ class TestFastqUtils(TestSuite):
         Tests the get sample name function for a single end sample name.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/my_sample.fastq'), fastqutils.PATTERN_FQ_SE), 'my_sample')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/my_sample.fastq'), fastqutils.PATTERN_FQ_SE), 'my_sample'
+        )
 
     def test_get_sample_name_se_gzipped(self) -> None:
         """
         Tests the get sample name function for a single end sample name.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/my_sample.fastq.gz'), fastqutils.PATTERN_FQ_SE), 'my_sample')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/my_sample.fastq.gz'), fastqutils.PATTERN_FQ_SE), 'my_sample'
+        )
 
     def test_get_sample_name_se_gzipped_with_dashes(self) -> None:
         """
         Tests the get sample name function for a single end sample name.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/temp/my_sample22-ds.fastq.gz'), fastqutils.PATTERN_FQ_SE), 'my_sample22-ds')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/temp/my_sample22-ds.fastq.gz'), fastqutils.PATTERN_FQ_SE),
+            'my_sample22-ds',
+        )
 
     def test_get_sample_name_parentheses(self) -> None:
         """
         Tests the get sample name function that contains parentheses.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(Path('/data/temp/UI-586(SRR7648453)_1.fastq.gz')), 'UI-586SRR7648453')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/UI-586(SRR7648453)_1.fastq.gz')), 'UI-586SRR7648453'
+        )
 
     def test_get_sample_name_miseq(self) -> None:
         """
         Tests the get sample name function that contains parentheses.
         :return: None
         """
-        self.assertEqual(fastqutils.get_sample_name(
-            Path('/data/temp/S20BD03018_S16_L001_R1_001.fastq.gz')), 'S20BD03018')
+        self.assertEqual(
+            fastqutils.get_sample_name(Path('/data/temp/S20BD03018_S16_L001_R1_001.fastq.gz')), 'S20BD03018'
+        )
 
     def test_count_reads_interleaved(self) -> None:
         """
@@ -169,9 +189,15 @@ class TestFastqUtils(TestSuite):
         :return: None
         """
         read_names = fastqutils.get_all_read_names(TestSuite.get_test_file('fq_1.fq'))
-        self.assertEqual(read_names, {
-            'M04115:7:000000000-AMA6W:1:1101:18190:1854', 'M04115:7:000000000-AMA6W:1:1101:23504:1916',
-            'M04115:7:000000000-AMA6W:1:1101:23856:1955', 'M04115:7:000000000-AMA6W:1:1101:9914:1907'})
+        self.assertEqual(
+            read_names,
+            {
+                'M04115:7:000000000-AMA6W:1:1101:18190:1854',
+                'M04115:7:000000000-AMA6W:1:1101:23504:1916',
+                'M04115:7:000000000-AMA6W:1:1101:23856:1955',
+                'M04115:7:000000000-AMA6W:1:1101:9914:1907',
+            },
+        )
 
     def test_get_all_read_names_gzipped_input(self) -> None:
         """
@@ -179,9 +205,15 @@ class TestFastqUtils(TestSuite):
         :return: None
         """
         read_names = fastqutils.get_all_read_names(TestSuite.get_test_file('fq_1.fq.gz'))
-        self.assertEqual(read_names, {
-            'M04115:7:000000000-AMA6W:1:1101:18190:1854', 'M04115:7:000000000-AMA6W:1:1101:23504:1916',
-            'M04115:7:000000000-AMA6W:1:1101:23856:1955', 'M04115:7:000000000-AMA6W:1:1101:9914:1907'})
+        self.assertEqual(
+            read_names,
+            {
+                'M04115:7:000000000-AMA6W:1:1101:18190:1854',
+                'M04115:7:000000000-AMA6W:1:1101:23504:1916',
+                'M04115:7:000000000-AMA6W:1:1101:23856:1955',
+                'M04115:7:000000000-AMA6W:1:1101:9914:1907',
+            },
+        )
 
     def test_count_bases(self) -> None:
         """

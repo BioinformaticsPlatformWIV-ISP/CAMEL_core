@@ -9,7 +9,9 @@ from camelcore.app.errors import SnakemakeExecutionError
 from camelcore.app.logger import logger
 
 
-def generate_config_file(config_data: dict[str, typing.Any], output_dir: Path, output_basename: str = 'config.yml') -> str:
+def generate_config_file(
+    config_data: dict[str, typing.Any], output_dir: Path, output_basename: str = 'config.yml'
+) -> str:
     """
     Generates a configuration file for Snakemake in YAML file format.
     :param config_data: Configuration data
@@ -27,8 +29,14 @@ def generate_config_file(config_data: dict[str, typing.Any], output_dir: Path, o
 
 
 def run_snakemake(
-        snakefile: str | Path, config_path: str | Path, targets: list[Path], working_dir: Path, threads: int = 8,
-        resources: dict[str, typing.Any] | None = None, slurm_args: dict[str, int] | None = None) -> Command:
+    snakefile: str | Path,
+    config_path: str | Path,
+    targets: list[Path],
+    working_dir: Path,
+    threads: int = 8,
+    resources: dict[str, typing.Any] | None = None,
+    slurm_args: dict[str, int] | None = None,
+) -> Command:
     """
     Helper function to run snakemake workflows.
     :param snakefile: Workflow snakefile
@@ -47,9 +55,12 @@ def run_snakemake(
     command_parts = [
         'snakemake',
         *[str(x) for x in targets],
-        '--snakefile', str(snakefile),
-        '--configfile', str(config_path),
-        '--cores', str(threads)
+        '--snakefile',
+        str(snakefile),
+        '--configfile',
+        str(config_path),
+        '--cores',
+        str(threads),
     ]
 
     # Add resources if they are specified
@@ -73,6 +84,7 @@ def run_snakemake(
         logger.error(f"Failed at rule: {rule_failed if rule_failed is not None else 'n/a'}")
         raise SnakemakeExecutionError(command.stdout, command.stderr, rule_failed)
     return command
+
 
 def __get_failed_rule(stderr: str) -> str | None:
     """

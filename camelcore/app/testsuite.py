@@ -15,6 +15,7 @@ class TestSuite(unittest.TestCase):
     """
     Base class for Camel test suites.
     """
+
     running_dir = None
 
     def setUp(self) -> None:

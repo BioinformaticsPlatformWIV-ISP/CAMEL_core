@@ -21,7 +21,7 @@ def determine_sample_name_from_fq(fastq_names: list[Path], is_pe: bool = True, d
         logger.debug("Filename does not match any standard FASTQ format")
 
     # Trimmomatic output files
-    m = re.search(fr'.+ on {pattern}', fastq_names[0].name)
+    m = re.search(rf'.+ on {pattern}', fastq_names[0].name)
     if m:
         return m.group(1)
 

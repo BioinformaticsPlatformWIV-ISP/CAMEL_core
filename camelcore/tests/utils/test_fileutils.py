@@ -16,7 +16,8 @@ class TestFileUtils(TestSuite):
         """
         self.assertEqual(
             '258cf917517a15d335c42e9da9efdd6f157c88a22ab4a9aa94743dafe3c82fc1',
-            fileutils.hash_file(TestSuite.get_test_file('fq_1.fq')))
+            fileutils.hash_file(TestSuite.get_test_file('fq_1.fq')),
+        )
 
     def test_get_all_files(self) -> None:
         """
@@ -35,7 +36,7 @@ class TestFileUtils(TestSuite):
         """
         self.assertEqual(
             '332f61e385645bc5ad755f2ff6ccf8c4693f569a79f33427065731e9ff41b812',
-            fileutils.hash_value('this_value_will_be_hashed')
+            fileutils.hash_value('this_value_will_be_hashed'),
         )
 
     def test_concatenate_files(self) -> None:
@@ -77,8 +78,7 @@ class TestFileUtils(TestSuite):
         # Concatenate
         path_out = self.running_dir / 'file_out.txt.gz'
         fileutils.concatenate_files(
-            output_path=path_out,
-            input_files=[file_a.with_suffix('.gz'), file_b.with_suffix('.gz')]
+            output_path=path_out, input_files=[file_a.with_suffix('.gz'), file_b.with_suffix('.gz')]
         )
 
         # Verify output
