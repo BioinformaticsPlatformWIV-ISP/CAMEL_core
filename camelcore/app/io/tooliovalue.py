@@ -22,14 +22,8 @@ class ToolIOValue(ToolIO):
     def value(self) -> Any:
         """
         Returns the value.
-
-
-
         :return: Value
         """
-
-
-
         return self._value
 
     @property
