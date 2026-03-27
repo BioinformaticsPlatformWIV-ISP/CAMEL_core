@@ -1,6 +1,6 @@
 # CAMEL core
 
-CAMEL core is a set of utilities used by Bioinformatics Platform at the Belgian Public Health institute (Sciensano).
+`CAMEL core` is a set of utilities used by Bioinformatics Platform at the Belgian Public Health institute (Sciensano).
 
 This package is not meant to be used directly, but contains functionality that is shared between various projects.
 
@@ -12,3 +12,11 @@ This package is not meant to be used directly, but contains functionality that i
 - Generating HTML reports with python code
 - Utility functions for executing Snakemake
 - A basic logger
+
+## Installation
+
+`CAMEL core` is available as a pip package for Python >=3.12.
+
+```
+pip install camel-core
+```
