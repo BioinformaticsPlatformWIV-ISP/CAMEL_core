@@ -23,6 +23,7 @@ def make_valid(value: str) -> str:
     value = value.replace(' ', '_')
     return ''.join([c for c in value if re.match(r'[\w\-_\\.]', c)])
 
+
 def is_gzipped(path: Path) -> bool:
     """
     Checks if the given file is compressed with gzip.
@@ -32,6 +33,7 @@ def is_gzipped(path: Path) -> bool:
     with path.open('rb') as handle:
         magic_number = binascii.hexlify(handle.read(2))
     return magic_number == b'1f8b'
+
 
 def gzip_compress(input_file: Path, output_gz_file: Path, threads: int = 1) -> None:
     """
@@ -53,6 +55,7 @@ def gzip_compress(input_file: Path, output_gz_file: Path, threads: int = 1) -> N
     if not command.exit_code == 0:
         raise RuntimeError(f"Cannot compress '{input_file}': {command.stderr}")
 
+
 def gzip_extract(input_gz_file: Path, output_gz_file: Path, threads: int = 1) -> None:
     """
     Extracts a file compressed with gzip. The original file is left untouched.
@@ -73,6 +76,7 @@ def gzip_extract(input_gz_file: Path, output_gz_file: Path, threads: int = 1) ->
     if not command.exit_code == 0:
         raise RuntimeError(f"Cannot extract '{input_gz_file}': {command.stderr}")
 
+
 def hash_file(file_path: Path, block_size: int = 65536) -> str:
     """
     Creates a hash for the file with a default block size of 65536 and the sha256 algorithm.
@@ -88,6 +92,7 @@ def hash_file(file_path: Path, block_size: int = 65536) -> str:
             hasher.update(chunk)
     return hasher.hexdigest()
 
+
 def get_all_files(directory_path: Path) -> list[Path]:
     """
     Returns all files in a directory recursively.
@@ -100,6 +105,7 @@ def get_all_files(directory_path: Path) -> list[Path]:
             files_list.append(entry)
     return files_list
 
+
 def hash_directory(path: Path) -> str:
     """
     Creates a hash for a folder with a default block size of 65536 and the sha256 algorithm.
@@ -111,6 +117,7 @@ def hash_directory(path: Path) -> str:
         hasher.update(hash_file(file_).encode('ascii'))
     return hasher.hexdigest()
 
+
 def hash_value(value: Any) -> str:
     """
     Creates a hash for a value.
@@ -120,6 +127,7 @@ def hash_value(value: Any) -> str:
     hasher = hashlib.sha256()
     hasher.update(pickle.dumps(value))
     return hasher.hexdigest()
+
 
 def silent_remove(file_path: Path) -> None:
     """
@@ -132,6 +140,7 @@ def silent_remove(file_path: Path) -> None:
         if e.errno != errno.ENOENT:  # errno.ENOENT = no such file or directory
             raise  # re-raise exception if a different error occurred
 
+
 def concatenate_files(output_path: Path, input_files: list[Path]):
     """
     Concatenate the input files specified into one output file. If the input is gzipped,
@@ -140,6 +149,7 @@ def concatenate_files(output_path: Path, input_files: list[Path]):
     :param output_path: Filename of the output
     :return: None
     """
+
     def get_hook(file):
         if is_gzipped(file):
             return lambda file_name, mode: gzip.open(file_name, mode='rt')
@@ -152,6 +162,7 @@ def concatenate_files(output_path: Path, input_files: list[Path]):
         for line in fin:
             handle.write(line)
     fin.close()
+
 
 def extract_tgz(archive_path: Path, out_dir: Path) -> None:
     """

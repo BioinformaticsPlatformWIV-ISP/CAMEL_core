@@ -17,6 +17,7 @@ def get_record_count(path_in: Path) -> int:
     with pysam.AlignmentFile(str(path_in), mode=mode) as bam:
         return bam.count(until_eof=True)
 
+
 def is_empty(path_in: Path) -> bool:
     """
     Check whether a SAM/BAM file contains only header
@@ -24,6 +25,7 @@ def is_empty(path_in: Path) -> bool:
     :return: True if infile contains no read records
     """
     return get_record_count(path_in) == 0
+
 
 def create_empty(path_out: Path, fasta_in: Path, compress=False) -> None:
     """

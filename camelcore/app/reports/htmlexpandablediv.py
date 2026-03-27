@@ -23,7 +23,7 @@ class HtmlExpandableDiv(HtmlElement):
         }});
     """
 
-    def __init__(self, id_: str, label: str, attributes: list[tuple[str, str]]=None):
+    def __init__(self, id_: str, label: str, attributes: list[tuple[str, str]] = None):
         """
         Initializes an expandable div.
         :param id_: Id of the element that is hidden / shown

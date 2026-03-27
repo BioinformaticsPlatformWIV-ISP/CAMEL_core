@@ -35,16 +35,16 @@ def init_report(path_out: Path, key: str, title: str, dir_out: Path | None = Non
 
 
 def create_overview_section(
-        version: str,
-        input_file_str: str,
-        dataset_name: str | None = None,
-        date: datetime | None = None,
-        input_type: str | None = None,
-        extra_data: list[Sequence[str]] | None = None,
-        key_citation: str | None = None,
-        warnings: list[str] | None = None,
-        date_fmt: str = '%Y-%m-%d %H:%M'
-    ) -> HtmlReportSection:
+    version: str,
+    input_file_str: str,
+    dataset_name: str | None = None,
+    date: datetime | None = None,
+    input_type: str | None = None,
+    extra_data: list[Sequence[str]] | None = None,
+    key_citation: str | None = None,
+    warnings: list[str] | None = None,
+    date_fmt: str = '%Y-%m-%d %H:%M',
+) -> HtmlReportSection:
     """
     Creates the overview section for the HTML output report.
     :param dataset_name: Dataset name
@@ -61,7 +61,7 @@ def create_overview_section(
     # Main information
     table_data = [
         ['Analysis date:', (date if not date is None else datetime.now()).strftime(date_fmt)],
-        ['Version:', version]
+        ['Version:', version],
     ]
     if dataset_name is not None:
         table_data.append(['Dataset:', dataset_name])
@@ -90,9 +90,8 @@ def create_overview_section(
             section.add_warning_message(warning_str)
     return section
 
-def create_commands_section(
-        tool_informs: list[dict[str, Any]],
-        dir_: Path) -> HtmlReportSection:
+
+def create_commands_section(tool_informs: list[dict[str, Any]], dir_: Path) -> HtmlReportSection:
     """
     Creates a section with an overview of the commands.
     :param tool_informs: Tool informs

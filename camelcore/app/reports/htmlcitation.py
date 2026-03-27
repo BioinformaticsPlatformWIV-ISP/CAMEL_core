@@ -22,8 +22,7 @@ class HtmlCitation(HtmlBase):
         self._authors = '; '.join(citation_data['first_authors'])
         self._pub_year = citation_data['publication_year'].split('/')[0]
         self._title = citation_data['primary_title']
-        citation_processor = {'jour': self._process_journal_citation,
-                              'book': self._process_book_citation}
+        citation_processor = {'jour': self._process_journal_citation, 'book': self._process_book_citation}
         try:
             citation_processor[citation_data['type_of_reference'].lower()]()
         except KeyError:

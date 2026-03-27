@@ -28,8 +28,9 @@ class HtmlExpandableTable(HtmlBase):
     }});
     """
 
-    def __init__(self, data: list[list], columns: list[str], nb_rows_shown: int = 5, id_: str | None = None,
-                 class_='data') -> None:
+    def __init__(
+        self, data: list[list], columns: list[str], nb_rows_shown: int = 5, id_: str | None = None, class_='data'
+    ) -> None:
         """
         Initializes the table.
         :param data: Table data

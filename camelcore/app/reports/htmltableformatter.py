@@ -11,14 +11,17 @@ class FormatEntry(TypedDict):
     """
     Helper class for type annotation of the formatting dictionary.
     """
+
     title: str
     key: str
     fmt: Callable | None
+
 
 class HtmlTableFormatter:
     """
     This class can be used to format Pandas dataframes as tables for the HTML output report.
     """
+
     FLOAT_FMT = lambda x: f'{x:.2f}'
     INT_FMT = lambda x: f'{int(x):,}'
 
@@ -41,8 +44,9 @@ class HtmlTableFormatter:
         return True
 
     @staticmethod
-    def format_table_data(data_in: pd.DataFrame, format_dict: list[FormatEntry], use_colors: bool=False) -> \
-            list[list[HtmlTableCell | str]]:
+    def format_table_data(
+        data_in: pd.DataFrame, format_dict: list[FormatEntry], use_colors: bool = False
+    ) -> list[list[HtmlTableCell | str]]:
         """
         Formats the table data.
         :param data_in: Input dataframe

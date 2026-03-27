@@ -12,6 +12,7 @@ def is_multi_sample(vcf_file: Path) -> bool:
     with VCF(str(vcf_file)) as vcf_reader:
         return len(vcf_reader.samples) > 1
 
+
 def retrieve_variants(vcf_file: Path, types: list[str] = None, excluded_types: list[str] = None):
     """
     Function to retrieve certain types of variants. Parameter
@@ -49,6 +50,7 @@ def retrieve_variants(vcf_file: Path, types: list[str] = None, excluded_types: l
         # no conditions
         records = list(vcf_reader)
     return records
+
 
 def count_variants(vcf_file: Path, include_filtered: bool = False) -> int:
     """

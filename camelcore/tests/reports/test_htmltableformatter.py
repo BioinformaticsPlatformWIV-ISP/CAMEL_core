@@ -18,15 +18,13 @@ class TestHtmlTableFormatter(TestSuite):
         :return: None
         """
         # Sample data
-        data_in = pd.DataFrame({
-            'a': [1, 2500, 3, 400, 56000],
-            'b': ['a', 'b', 'c', 'd', 'e'],
-            'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]
-        })
+        data_in = pd.DataFrame(
+            {'a': [1, 2500, 3, 400, 56000], 'b': ['a', 'b', 'c', 'd', 'e'], 'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]}
+        )
         format_dict: list[FormatEntry] = [
             {'key': 'a', 'title': 'Column A', 'fmt': HtmlTableFormatter.INT_FMT},
             {'key': 'b', 'title': 'Column B'},
-            {'key': 'c', 'title': 'Column C', 'fmt': HtmlTableFormatter.FLOAT_FMT}
+            {'key': 'c', 'title': 'Column C', 'fmt': HtmlTableFormatter.FLOAT_FMT},
         ]
 
         # Create the report section
@@ -34,7 +32,7 @@ class TestHtmlTableFormatter(TestSuite):
         section.add_table(
             HtmlTableFormatter.format_table_data(data_in, format_dict),
             [c['title'] for c in format_dict],
-            [('class', 'data')]
+            [('class', 'data')],
         )
 
         # Save the report in the current directory
@@ -46,16 +44,18 @@ class TestHtmlTableFormatter(TestSuite):
         :return: None
         """
         # Sample data
-        data_in = pd.DataFrame({
-            'a': [1, 2500, 3, 400, 56000],
-            'b': ['a', 'b', 'c', 'd', 'e'],
-            'c': [10.2, 5.0, 12.42, 1355.4, 3.13451],
-            'color': ['green', 'green', 'grey', 'red', 'green']
-        })
+        data_in = pd.DataFrame(
+            {
+                'a': [1, 2500, 3, 400, 56000],
+                'b': ['a', 'b', 'c', 'd', 'e'],
+                'c': [10.2, 5.0, 12.42, 1355.4, 3.13451],
+                'color': ['green', 'green', 'grey', 'red', 'green'],
+            }
+        )
         format_dict: list[FormatEntry] = [
             {'key': 'a', 'title': 'Column A', 'fmt': HtmlTableFormatter.INT_FMT},
             {'key': 'b', 'title': 'Column B'},
-            {'key': 'c', 'title': 'Column C', 'fmt': HtmlTableFormatter.FLOAT_FMT}
+            {'key': 'c', 'title': 'Column C', 'fmt': HtmlTableFormatter.FLOAT_FMT},
         ]
 
         # Create the report section
@@ -63,7 +63,7 @@ class TestHtmlTableFormatter(TestSuite):
         section.add_table(
             HtmlTableFormatter.format_table_data(data_in, format_dict, use_colors=True),
             [c['title'] for c in format_dict],
-            [('class', 'data')]
+            [('class', 'data')],
         )
 
         # Save the report in the current directory
@@ -75,16 +75,14 @@ class TestHtmlTableFormatter(TestSuite):
         :return: None
         """
         # Sample data
-        data_in = pd.DataFrame({
-            'a': [1, 2500, 3, 400, 56000],
-            'b': ['a', 'b', 'c', 'd', 'e'],
-            'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]
-        })
+        data_in = pd.DataFrame(
+            {'a': [1, 2500, 3, 400, 56000], 'b': ['a', 'b', 'c', 'd', 'e'], 'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]}
+        )
         format_dict: list[FormatEntry] = [
             {'key': 'a', 'title': 'Column A', 'fmt': HtmlTableFormatter.INT_FMT},
             {'key': 'b', 'title': 'Column B'},
             {'key': 'c', 'title': 'Column C', 'fmt': HtmlTableFormatter.FLOAT_FMT},
-            {'key': 'non_existing', 'title': 'Non existing'}
+            {'key': 'non_existing', 'title': 'Non existing'},
         ]
 
         # Create the report section
@@ -93,7 +91,7 @@ class TestHtmlTableFormatter(TestSuite):
             section.add_table(
                 HtmlTableFormatter.format_table_data(data_in, format_dict),
                 [c['title'] for c in format_dict],
-                [('class', 'data')]
+                [('class', 'data')],
             )
 
     def test_table_missing_color(self) -> None:
@@ -102,11 +100,9 @@ class TestHtmlTableFormatter(TestSuite):
         :return: None
         """
         # Sample data
-        data_in = pd.DataFrame({
-            'a': [1, 2500, 3, 400, 56000],
-            'b': ['a', 'b', 'c', 'd', 'e'],
-            'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]
-        })
+        data_in = pd.DataFrame(
+            {'a': [1, 2500, 3, 400, 56000], 'b': ['a', 'b', 'c', 'd', 'e'], 'c': [10.2, 5.0, 12.42, 1355.4, 3.13451]}
+        )
         format_dict: list[FormatEntry] = [
             {'key': 'a', 'title': 'Column A', 'fmt': HtmlTableFormatter.INT_FMT},
             {'key': 'b', 'title': 'Column B'},
@@ -119,7 +115,7 @@ class TestHtmlTableFormatter(TestSuite):
             section.add_table(
                 HtmlTableFormatter.format_table_data(data_in, format_dict, use_colors=True),
                 [c['title'] for c in format_dict],
-                [('class', 'data')]
+                [('class', 'data')],
             )
 
 

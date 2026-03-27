@@ -8,6 +8,7 @@ class TestSnakeUtils(TestSuite):
     """
     Tests the snakemake utility classes.
     """
+
     test_snakefile = TestSuite.get_test_file('workflow_test.smk')
 
     def test_run_snakefile(self) -> None:
@@ -15,9 +16,7 @@ class TestSnakeUtils(TestSuite):
         Tests the run snakefile method.
         :return: None
         """
-        config_data = {
-            'working_dir': str(self.running_dir)
-        }
+        config_data = {'working_dir': str(self.running_dir)}
         config_path = snakeutils.generate_config_file(config_data, self.running_dir)
         snakeutils.run_snakemake(str(TestSnakeUtils.test_snakefile), config_path, [], self.running_dir)
 
@@ -26,12 +25,11 @@ class TestSnakeUtils(TestSuite):
         Tests the run snakefile method with the resources parameter set.
         :return: None
         """
-        config_data = {
-            'working_dir': str(self.running_dir)
-        }
+        config_data = {'working_dir': str(self.running_dir)}
         config_path = snakeutils.generate_config_file(config_data, self.running_dir)
         command = snakeutils.run_snakemake(
-            str(TestSnakeUtils.test_snakefile), config_path, [], self.running_dir, resources={'RAM': 2, 'GPU': 4})
+            str(TestSnakeUtils.test_snakefile), config_path, [], self.running_dir, resources={'RAM': 2, 'GPU': 4}
+        )
         self.assertIn('--resources', command.command, 'Resources parameter not added')
         self.assertIn('RAM', command.command, 'Resource not added')
         self.assertIn('GPU', command.command, 'Resource not added')

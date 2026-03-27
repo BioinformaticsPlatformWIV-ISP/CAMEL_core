@@ -14,6 +14,7 @@ class SnakemakeExecutionError(RuntimeError):
         self.stderr = stderr
         self.failed_rule = failed_rule
 
+
 class DependencyError(ValueError):
     """
     Error that is raised when a dependency is not available..

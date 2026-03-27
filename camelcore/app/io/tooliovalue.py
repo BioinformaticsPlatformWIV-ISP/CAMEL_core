@@ -9,7 +9,7 @@ class ToolIOValue(ToolIO):
     Class that represents an input / output value of a tool.
     """
 
-    def __init__(self, value: Any, logged: bool=True) -> None:
+    def __init__(self, value: Any, logged: bool = True) -> None:
         """
         Initializes a tool input / output value.
         :param value: Value

@@ -28,6 +28,7 @@ PATTERN_FQ_PE = r'(.+?)(_S\d+)?(_L\d{3})?[_.]R?1P?(_\d+)?.(fastq|fq)(.gz)?'
 PATTERN_FQ_SE = r'(.+?)(_S\d+)?(_L\d{3})?(_\d+)?.(fastq|fq)(.gz)?'
 PATTERN_FQ_ONT = r'(.+?)(?:_([A-Z0-9-]+)_([A-Z]+v[\d-]+)_(\d+)_(run\d+)_(B\d+))?(?:\.(fastq|fq)(?:\.gz)?)?$'
 
+
 def get_sample_name(fastq_path: Path | str, pattern: str = PATTERN_FQ_PE) -> str:
     """
     Returns the sample name based on the given reads.
@@ -40,6 +41,7 @@ def get_sample_name(fastq_path: Path | str, pattern: str = PATTERN_FQ_PE) -> str
     if m:
         return m.group(1)
     raise ValueError(f"Cannot determine sample name from: {basename}")
+
 
 def get_all_read_names(fastq_path: Path) -> set[str]:
     """
@@ -54,6 +56,7 @@ def get_all_read_names(fastq_path: Path) -> set[str]:
             read_names.add(record.id)
     return read_names
 
+
 def count_bases(input_file: Path) -> int:
     """
     Calculates the number of bases in the given input files
@@ -65,6 +68,7 @@ def count_bases(input_file: Path) -> int:
     command = Command(cmd)
     command.run(Path.cwd())
     return int(command.stdout)
+
 
 def is_fastq(input_file: Path) -> bool:
     """
